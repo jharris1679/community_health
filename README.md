@@ -68,6 +68,8 @@ How activity in one network becomes activity in another network.
 The geographical significance of anything other than a static scattering of user locations about a community centroid
  
 ### Sources
+
+Network Statistics: http://www.stats.ox.ac.uk/~reinert/talks/graduatenetworklectures.pdf
  
 Calculating network density: http://www.the-vital-edge.com/what-is-network-density/
 
