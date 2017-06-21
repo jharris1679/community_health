@@ -57,11 +57,13 @@ Be aware of newer, small communities very close to healthy ones, where new commu
 ### Questions
 
 Is improving geo capabilities a feasible option?
+
 Is there a way to distinguish message to buy and message to chat?
  
 ### What we cannot measure
  
-How activity in one network becomes activity in another network
+How activity in one network becomes activity in another network.
+
 The geographical significance of anything other than a static scattering of user locations about a community centroid
  
 ### Sources
