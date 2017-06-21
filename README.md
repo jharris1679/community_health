@@ -39,8 +39,8 @@ Be aware of newer, small communities very close to healthy ones, where new commu
  
 ### Network structure
  
- - Nodes are half-members; senders and recipients
- - Senders and recipients cannot have infinitely many edges. We are seeking to maximize this quantity.
+ - Nodes are half-members; senders and recipients, identified by their user_id
+ - Senders and recipients cannot have infinitely many edges (the degree of the node). We are seeking to maximize this quantity.
  - Edges cannot have infinite weight. We are also seeking to maximize this quantity.
  - Edge types
 	 - Message
@@ -50,7 +50,7 @@ Be aware of newer, small communities very close to healthy ones, where new commu
 	 - Transaction
 	 - Praise
 	 - Approximated notifications? 
- - Direction of an edge is encoded in the contextual difference between its two nodes
+ - Direction of an edge is encoded in the order of the user_id pair that represents an edge, a pairing function is used to combine the two user_ids such that the order is preserved, so that distinct buyer-seller and seller-buyer relationships can be counted between the same two members.
  - Edges gain weight with repetition (except follow and praise)
  
  
