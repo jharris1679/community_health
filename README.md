@@ -78,5 +78,7 @@ Pairing function: https://math.stackexchange.com/questions/1980348/pairing-funct
 Average Degree: https://math.stackexchange.com/questions/1383109/average-degree-in-graph
 
 Potential Python package for working with networks: https://github.com/networkx/networkx/
+
+Measures of Centrality: http://statmath.wu.ac.at/research/friday/resources_WS0708_SS08/igraph.pdf
  
 
