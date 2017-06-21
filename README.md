@@ -29,6 +29,7 @@ Be aware of newer, small communities very close to healthy ones, where new commu
 	  Number unique node pairs of a given edge type
  - Correlate network densities with corresponding community metrics [sell rate, replacement rate].
  - Cluster communities on a combination of traditional item-based metrics and network densities, as well as population stats    derived from node properties.
+
 **Potential next steps**
  - Select key item-based and network-based stats and compare time series of selected communities.
  - Look for correlations between slopes across the set of communities.
