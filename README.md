@@ -29,6 +29,7 @@ Be aware of newer, small communities very close to healthy ones, where new commu
 	  Number unique node pairs of a given edge type
  - Correlate network densities with corresponding community metrics [sell rate, replacement rate].
  - Cluster communities on a combination of traditional item-based metrics and network densities, as well as population stats    derived from node properties.
+
 **Potential next steps**
  - Select key item-based and network-based stats and compare time series of selected communities.
  - Look for correlations between slopes across the set of communities.
@@ -39,8 +40,8 @@ Be aware of newer, small communities very close to healthy ones, where new commu
  
 ### Network structure
  
- - Nodes are half-members; senders and recipients
- - Senders and recipients cannot have infinitely many edges. We are seeking to maximize this quantity.
+ - Nodes are half-members; senders and recipients, identified by their user_id
+ - Senders and recipients cannot have infinitely many edges (the degree of the node). We are seeking to maximize this quantity.
  - Edges cannot have infinite weight. We are also seeking to maximize this quantity.
  - Edge types
 	 - Message
@@ -50,7 +51,7 @@ Be aware of newer, small communities very close to healthy ones, where new commu
 	 - Transaction
 	 - Praise
 	 - Approximated notifications? 
- - Direction of an edge is encoded in the contextual difference between its two nodes
+ - Direction of an edge is encoded in the order of the user_id pair that represents an edge, a pairing function is used to combine the two user_ids such that the order is preserved, so that distinct buyer-seller and seller-buyer relationships can be counted between the same two members.
  - Edges gain weight with repetition (except follow and praise)
  
  
@@ -67,6 +68,8 @@ How activity in one network becomes activity in another network.
 The geographical significance of anything other than a static scattering of user locations about a community centroid
  
 ### Sources
+
+Network Statistics: http://www.stats.ox.ac.uk/~reinert/talks/graduatenetworklectures.pdf
  
 Calculating network density: http://www.the-vital-edge.com/what-is-network-density/
 
@@ -77,5 +80,9 @@ Pairing function: https://math.stackexchange.com/questions/1980348/pairing-funct
 Average Degree: https://math.stackexchange.com/questions/1383109/average-degree-in-graph
 
 Potential Python package for working with networks: https://github.com/networkx/networkx/
+
+Measures of Centrality: http://statmath.wu.ac.at/research/friday/resources_WS0708_SS08/igraph.pdf
+
+Non-parametric (distribution does not matter) correlation: http://www.statisticssolutions.com/kendalls-tau-and-spearmans-rank-correlation-coefficient/
  
 
