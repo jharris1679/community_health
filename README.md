@@ -85,4 +85,4 @@ Measures of Centrality: http://statmath.wu.ac.at/research/friday/resources_WS070
 
 Non-parametric (distribution does not matter) correlation: http://www.statisticssolutions.com/kendalls-tau-and-spearmans-rank-correlation-coefficient/
  
-
+BigQuery Client for Python Code Examples: https://pypi.python.org/pypi/google-cloud-bigquery
