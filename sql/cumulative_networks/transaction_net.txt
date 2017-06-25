@@ -1,27 +1,21 @@
 select
   'transaction' as edge_type,
-  cf.cid,
-  name,
-  nodes*(nodes-1)/2 as possible_edges,
-  items_sold_may_2017,
-  inventory,
-  items_sold_change_2017,
-  actual_edges,
+  cf.*,
   avg_weight,
-  nodes,
-  if(nodes*(nodes-1)/2=0, 0, actual_edges/(nodes*(nodes-1)/2))*100 as network_density_X_100,
-  2*actual_edges/nodes as avg_degree,
+  if(nodes*(nodes-1)/2=0, 0, edges/(nodes*(nodes-1)/2))*100 as network_density_X_100,
+  2*edges/nodes as avg_degree,
   avg_indegree,
-  avg_outdegree
-from `vs_reporting.community_facts` cf 
+  avg_outdegree,
+  (avg_indegree - avg_outdegree) / avg_outdegree indegree_skew
+from `community_networks.community_facts` cf 
 join
-  (select m_community_id cid, count(distinct(2^buyer_id*2^seller_id)) actual_edges
+  (select m_community_id cid, count(distinct(2^buyer_id*2^seller_id)) edges
   from vs_reporting.user_memberships u
   join
     (select cast(buyer_id as int64) as buyer_id, seller_id
     from `vs_reporting.transactions`
     where buyer_id != 'NULL') t on u.user_id = t.buyer_id
-  group by cid) edges on cf.cid = edges.cid
+  group by cid) e on cf.cid = e.cid
 join
   (select cid, avg(edge_weight) avg_weight
   from
@@ -32,7 +26,7 @@ join
       from `vs_reporting.transactions`
       where buyer_id != 'NULL') t on u.user_id = t.buyer_id
     group by cid, edge)
-  group by cid) weight on weight.cid = cf.cid
+  group by cid) w on w.cid = cf.cid
 join
   (select cid, avg(indeg) avg_indegree
   from

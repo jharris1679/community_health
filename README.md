@@ -19,6 +19,10 @@ Be aware of newer, small communities very close to healthy ones, where new commu
 **Degree**: The number of edges connected to a node
 
 **Weight**: A property of an edge, for us weight represents repeated interaction between a pair of members.
+
+**Correlation**: A relationship between two variables, often indicating the presence some third factor that keeps the two in step with each other. It may also be true that variable A causes variable B or vice versa. There's even a chance it's a complete coincidence. When we find an unexpectedly strong correlation, we should meet it with skepticism and look for logical reasons why it might not be meaningful.
+
+**Correlation Coefficient**: A value between -1 and 1 that represents the strength of a correlation.
  
 ### Analysis
  - Calculate network density
