@@ -90,3 +90,15 @@ Measures of Centrality: http://statmath.wu.ac.at/research/friday/resources_WS070
 Non-parametric (distribution does not matter) correlation: http://www.statisticssolutions.com/kendalls-tau-and-spearmans-rank-correlation-coefficient/
  
 BigQuery Client for Python Code Examples: https://pypi.python.org/pypi/google-cloud-bigquery
+
+#### More Reading to do:
+
+http://www.fields.utoronto.ca/activities/16-17/randomgraphs-workshop
+
+http://www.math.ryerson.ca/~abonato/
+
+http://www.ryerson.ca/news/news/Research_News/20100803_math/
+
+http://www.utdallas.edu/~sherry.xin.li/soc_pref_movielens_20081116.pdf ****
+
+https://books.google.ca/books?id=lIvBMYVxWJYC&pg=PA1&lpg=PA1&dq=mathematical+models+of+online+communities&source=bl&ots=zYI0hpqgPE&sig=K3AfpjpgWvn3DgWjbFMrRHqwkXQ&hl=en&sa=X&ved=0ahUKEwjXz5me0drUAhXpx4MKHfTQBxYQ6AEIRDAG#v=onepage&q=mathematical%20models%20of%20online%20communities&f=false
