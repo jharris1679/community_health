@@ -2,18 +2,18 @@ select
   n.cid,
   name,
   nodes,
-  if(items_sold_may_2017 is null, 0, items_sold_may_2017) items_sold_may_2017,
+  if(items_sold_june_2017 is null, 0, items_sold_june_2017) items_sold_june_2017,
   if(
-    if(items_sold_jan_2017=0, 0, (if(items_sold_may_2017 is null, 0, items_sold_may_2017) - items_sold_jan_2017) / items_sold_jan_2017) is null,
+    if(items_sold_jan_2017=0, 0, (if(items_sold_june_2017 is null, 0, items_sold_june_2017) - items_sold_jan_2017) / items_sold_jan_2017) is null,
     0, 
-    if(items_sold_jan_2017=0, 0, (if(items_sold_may_2017 is null, 0, items_sold_may_2017) - items_sold_jan_2017) / items_sold_jan_2017)
+    if(items_sold_jan_2017=0, 0, (if(items_sold_june_2017 is null, 0, items_sold_june_2017) - items_sold_jan_2017) / items_sold_jan_2017)
   ) as items_sold_change_2017,
   if(inventory is null, 0, inventory) inventory,
-  if(mau_may_2017 is null, 0, mau_may_2017) mau_may_2017,
+  if(mau_june_2017 is null, 0, mau_june_2017) mau_june_2017,
   if(
-    if(mau_jan_2017=0, mau_may_2017, (if(mau_may_2017 is null, 0, mau_may_2017) - mau_jan_2017) / mau_jan_2017) is null,
+    if(mau_jan_2017=0, mau_june_2017, (if(mau_june_2017 is null, 0, mau_june_2017) - mau_jan_2017) / mau_jan_2017) is null,
     0, 
-    if(mau_jan_2017=0, mau_may_2017, (if(mau_may_2017 is null, 0, mau_may_2017) - mau_jan_2017) / mau_jan_2017)
+    if(mau_jan_2017=0, mau_june_2017, (if(mau_june_2017 is null, 0, mau_june_2017) - mau_jan_2017) / mau_jan_2017)
   ) as mau_change_2017
 from
   (select m_community_id cid, name, count(distinct(memb_id)) nodes
@@ -23,7 +23,7 @@ from
 left join 
   (select
     cid,
-    max(if(year = '2017-05', items_sold, 0)) items_sold_may_2017,
+    max(if(year = '2017-06', items_sold, 0)) items_sold_june_2017,
     max(if(year = '2017-01', items_sold, 0)) items_sold_jan_2017
   from
     (select 
@@ -33,7 +33,7 @@ left join
     from `solid-ridge-104914.hipyard_analytics_production.item_events_partitioned` 
     where event = 'item_sold'
     and format_date('%Y', date(timestamp)) = '2017'
-    and format_date('%m', date(timestamp)) in('01','05')
+    and format_date('%m', date(timestamp)) in('01','06')
     group by cid, year)
   group by cid) s on s.cid = n.cid
 left join 
@@ -45,7 +45,7 @@ left join
 left join 
   (select
     cid,
-    max(if(year = '2017-05', mau, 0)) mau_may_2017,
+    max(if(year = '2017-06', mau, 0)) mau_june_2017,
     max(if(year = '2017-01', mau, 0)) mau_jan_2017
   from
     (select 
@@ -56,7 +56,7 @@ left join
     join `solid-ridge-104914.hipyard_analytics_production.user_events_partitioned` e on e.user.id = u.user_id
     where event != 'user_signup'
     and format_date('%Y', date(timestamp)) = '2017'
-    and format_date('%m', date(timestamp)) in('01','05')
+    and format_date('%m', date(timestamp)) in('01','06')
     group by cid, year)
   group by cid) m on m.cid = n.cid
 order by cid

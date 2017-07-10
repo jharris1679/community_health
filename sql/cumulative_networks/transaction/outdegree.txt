@@ -1,0 +1,10 @@
+select cid, avg(outdeg) avg_outdegree
+  from
+    (select m_community_id cid, seller_id, count(distinct(t.id)) outdeg
+    from vs_reporting.user_memberships u
+    join
+      (select cast(buyer_id as int64) as buyer_id, seller_id, id
+      from `vs_reporting.transactions`
+      where buyer_id != 'NULL') t on u.user_id = t.buyer_id
+    group by cid, seller_id)
+  group by cid

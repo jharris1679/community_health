@@ -1,0 +1,7 @@
+select m_community_id cid, count(distinct(2^buyer_id*2^seller_id)) edges
+  from vs_reporting.user_memberships u
+  join
+    (select cast(buyer_id as int64) as buyer_id, seller_id
+    from `vs_reporting.transactions`
+    where buyer_id != 'NULL') t on u.user_id = t.buyer_id
+  group by cid
