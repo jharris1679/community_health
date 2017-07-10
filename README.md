@@ -91,6 +91,8 @@ Non-parametric (distribution does not matter) correlation: http://www.statistics
  
 BigQuery Client for Python Code Examples: https://pypi.python.org/pypi/google-cloud-bigquery
 
+Complex Adaptive Systems Primer: http://www.beyondintractability.org/essay/complex_adaptive_systems
+
 #### More Reading to do:
 
 http://www.fields.utoronto.ca/activities/16-17/randomgraphs-workshop
