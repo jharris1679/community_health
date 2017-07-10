@@ -93,6 +93,9 @@ BigQuery Client for Python Code Examples: https://pypi.python.org/pypi/google-cl
 
 Complex Adaptive Systems Primer: http://www.beyondintractability.org/essay/complex_adaptive_systems
 
+Parallel Python for Running multiple queries: https://pymotw.com/2/multiprocessing/basics.html  ,
+https://docs.python.org/3/library/multiprocessing.html#multiprocessing.pool.AsyncResult
+
 #### More Reading to do:
 
 http://www.fields.utoronto.ca/activities/16-17/randomgraphs-workshop
