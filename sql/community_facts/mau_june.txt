@@ -1,0 +1,10 @@
+select 
+  community_id cid,
+  count(distinct(ue.user_id)) MAU
+from `vs_reporting.user_first_community` ufc
+join 
+  (select user.id user_id
+  from `hipyard_analytics_production.user_events_partitioned`
+  where format_date('%Y-%m', date(timestamp)) = '2017-06'
+  group by user_id) ue on ue.user_id = ufc.user_id
+group by cid

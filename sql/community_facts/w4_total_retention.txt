@@ -1,0 +1,24 @@
+select
+  cid,
+  count(distinct(euid)) / count(distinct(muid)) w4_total_retention
+from
+  (select um.user_id muid, ue.user_id euid, cid
+  from
+    (select
+      user_id,
+      cid,
+      date_add(date(user_created_at), interval 28 day) dN, #retention window
+      date_add(date(user_created_at), interval 35 day) dM
+    from
+      (select ufc.user_id, user_created_at, community_id cid
+      from vs_reporting.user_first_community ufc
+      where format_date('%Y-%m', date(user_created_at)) = '2017-05')) um
+  left join
+    (select
+      date(timestamp) as event_date,
+      user.id user_id
+    from `hipyard_analytics_production.user_events_partitioned`
+    group by user.id, event_date) ue on ue.user_id = um.user_id and event_date >= dN and event_date < dM
+  group by um.user_id, ue.user_id, cid)
+group by cid
+order by cid

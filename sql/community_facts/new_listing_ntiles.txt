@@ -1,0 +1,17 @@
+select
+  cid,
+  new_listings,
+  ntile(20)  over(order by new_listings desc) ntile
+from
+  (select
+    community_id cid,
+    count(distinct(item_id)) new_listings
+  from `vs_reporting.user_first_community` ufc
+  join
+    (select
+      item.id item_id,
+      user.id user_id
+    from `hipyard_analytics_production.item_events_partitioned`
+    where event = 'item_posted'
+    and format_date('%Y-%m', date(timestamp)) = '2017-05') items on items.user_id = ufc.user_id
+  group by cid)

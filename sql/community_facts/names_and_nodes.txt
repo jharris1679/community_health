@@ -1,6 +1,5 @@
 select
   n.cid,
-  name,
   nodes,
   if(items_sold_june_2017 is null, 0, items_sold_june_2017) items_sold_june_2017,
   if(
