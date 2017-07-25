@@ -1,11 +1,10 @@
 select
   cid,
-  new_listings,
-  ntile(20)  over(order by new_listings desc) ntile
+  items_posted,
 from
   (select
     community_id cid,
-    count(distinct(item_id)) new_listings
+    count(distinct(item_id)) items_posted
   from `vs_reporting.user_first_community` ufc
   join
     (select
