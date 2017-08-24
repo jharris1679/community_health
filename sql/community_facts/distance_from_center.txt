@@ -1,0 +1,31 @@
+##user_distance_from_community_center
+##source: bigquery
+## haversine formula credit goes to https://www.scribd.com/presentation/2569355/Geo-Distance-Search-with-MySQL
+
+select
+  cid,
+  avg(distance.from_center) avg_distance_from_center,
+  approx_quantiles(distance.from_center,100)[offset(50)] median_distance_from_center
+from 
+  (select 
+    memb_id point_id,
+    m_community_id cid
+  from vs_reporting.user_memberships
+  where m_status = 'active'
+  and m_role = 'member'
+  and m_deleted_at is null) points
+join 
+  (select 
+    memb_id point_id,
+    name,
+    #haversine formula
+    round((6373 * 2 * asin(sqrt(power(sin((u_lat - abs(cast(lat as float64))) 
+	    * 3.1415927/180 / 2 ), 2) + cos(u_lat * 3.1415927/180 ) 
+   		* cos(abs(cast(lat as float64)) *  3.1415927/180 ) 
+	  	* power(sin((u_lon - cast(lon as float64)) *  3.1415927/180 / 2), 2)))), 2) as from_center
+   from `vs_reporting.user_memberships` u
+   join `vs_reporting.communities` c on u.m_community_id = c.id
+   where c.lat !='NULL'
+   and c.lon !='NULL') distance on points.point_id = distance.point_id and distance.from_center <= 200
+group by cid, name
+order by cid 

@@ -1,16 +1,15 @@
 select
-  cid,
-  items_posted,
-from
+  community_id cid,
+  count(distinct(item_id)) items_posted_last_month,
+  month
+from `vs_reporting.user_first_community` ufc
+join
   (select
-    community_id cid,
-    count(distinct(item_id)) items_posted
-  from `vs_reporting.user_first_community` ufc
-  join
-    (select
-      item.id item_id,
-      user.id user_id
-    from `hipyard_analytics_production.item_events_partitioned`
-    where event = 'item_posted'
-    and format_date('%Y-%m', date(timestamp)) = '2017-05') items on items.user_id = ufc.user_id
-  group by cid)
+    item.id item_id,
+    user.id user_id,
+    format_date('%Y-%m', date(timestamp)) month
+  from `hipyard_analytics_production.item_events_partitioned`
+  where event = 'item_posted'
+  and format_date('%Y-%m', date(timestamp)) = format_date('%Y-%m', date_sub(current_date, interval 1 month))) items on items.user_id = ufc.user_id
+group by cid, month
+

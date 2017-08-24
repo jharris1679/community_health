@@ -1,0 +1,16 @@
+select
+  n.cid,
+  nodes,
+  if(inventory is null, 0, inventory) inventory,
+from
+  (select m_community_id cid, name, count(distinct(memb_id)) nodes
+  from `solid-ridge-104914.vs_reporting.user_memberships` u
+  join `solid-ridge-104914.vs_reporting.communities` c on u.m_community_id = c.id
+  group by cid, name) n
+left join 
+  (select 
+    community_id cid, 
+    count(distinct(item_id)) inventory
+  from `solid-ridge-104914.vs_reporting.community_items`  
+  group by cid) inv on inv.cid = n.cid
+order by cid

@@ -1,0 +1,16 @@
+select 
+  m_community_id cid,
+  avg(communities_per_user) avg_communities_per_user
+from `vs_reporting.user_memberships` c
+join `vs_reporting.communities` com on c.m_community_id = com.id
+join
+  (select 
+    user_id,
+    count(distinct(m_community_id)) communities_per_user
+  from `vs_reporting.user_memberships`
+  where m_status = 'active'
+  and m_role = 'member'
+  and m_deleted_at is not null
+  group by user_id) u on c.user_id = u.user_id
+group by cid, name
+order by avg_communities_per_user desc
