@@ -12,7 +12,7 @@ from
     from
       (select ufc.user_id, user_created_at, community_id cid
       from vs_reporting.user_first_community ufc
-      where format_date('%Y-%m', date(user_created_at)) = format_date('%Y-%m', date_sub(date_sub(current_date(), interval 112 day), interval 1 month))) um
+      where format_date('%Y-%m', date(user_created_at)) = format_date('%Y-%m', date_sub(date_sub(current_date(), interval 112 day), interval 1 month)))) um
   left join
     (select
       date(timestamp) as event_date,

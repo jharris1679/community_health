@@ -1,0 +1,14 @@
+select
+  community_id cid,
+  count(distinct(if(len > 0, al.user_id, 0))) / count(distinct(ue.user_id)) pct_with_about_me
+from `vs_reporting.user_first_community` ufc
+join
+  (select user.id user_id
+  from `hipyard_analytics_production.user_events_partitioned`
+  where format_date('%Y-%m', date(timestamp)) = format_date('%Y-%m', date_sub(current_date(), interval 1 month))
+  group by user_id) ue on ue.user_id = ufc.user_id
+left join
+  (select user_id, len
+  from `vs_reporting.about_length`) al on al.user_id = ue.user_id
+group by cid
+order by cid
