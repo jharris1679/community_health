@@ -1,0 +1,12 @@
+select 
+  community_id cid, 
+  count(distinct(ufc.user_id)) paid_signups_june
+from vs_reporting.user_first_community ufc
+join 
+  (select
+    user_id
+  from `vs_reporting.user_attribution`
+  where media_source is not null
+  and media_source != 'Organic') ua on ufc.user_id = ua.user_id
+where format_date('%Y-%m', date(user_created_at)) = '2017-06'
+group by cid
