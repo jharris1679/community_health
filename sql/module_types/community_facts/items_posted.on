@@ -1,7 +1,6 @@
 select
   community_id cid,
-  count(distinct(item_id)) items_posted_last_month,
-  month
+  count(distinct(item_id)) items_posted_last_month
 from `vs_reporting.user_first_community` ufc
 join
   (select

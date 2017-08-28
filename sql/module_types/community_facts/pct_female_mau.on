@@ -1,6 +1,6 @@
 select
   community_id cid,
-  count(distinct(if(gender = 'F', ue.user_id, 0))) / count(distinct(ue.user_id)) MAU
+  count(distinct(if(gender = 'F', ue.user_id, 0))) / count(distinct(ue.user_id)) pct_female_mau
 from `vs_reporting.user_first_community` ufc
 join
   (select user.id user_id

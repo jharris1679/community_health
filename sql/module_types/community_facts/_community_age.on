@@ -3,3 +3,4 @@ select
   name,
   date_diff(current_date, date(created_at), day) age
 from `vs_reporting.communities`
+where created_by != 0

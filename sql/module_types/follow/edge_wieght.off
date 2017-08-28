@@ -1,0 +1,13 @@
+select cid, avg(edge_weight) follow_avg_weight
+  from
+    (select m_community_id cid, 2^follower_id*3^followable_id edge, count(distinct(id)) edge_weight
+    from vs_reporting.user_memberships u
+    join
+      (select  follower_id, followable_id, min(id) id
+      from `vs_reporting.follows_user`
+      group by follower_id, followable_id) t on u.user_id = t.follower_id
+    group by cid, edge)
+  where cid is not null
+  group by cid
+  order by cid
+

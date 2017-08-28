@@ -1,10 +1,12 @@
-select cid, avg(indeg) avg_indegree
+select cid, avg(edge_weight) transaction_avg_weight
   from
-    (select m_community_id cid, buyer_id, count(distinct(t.id)) indeg
+    (select m_community_id cid, 2^buyer_id*3^seller_id edge, count(distinct(id)) edge_weight
     from vs_reporting.user_memberships u
     join
       (select cast(buyer_id as int64) as buyer_id, seller_id, id
       from `vs_reporting.transactions`
       where buyer_id != 'NULL') t on u.user_id = t.buyer_id
-    group by cid, buyer_id)
+    group by cid, edge)
   group by cid
+
+

@@ -1,0 +1,9 @@
+
+select m_community_id cid, count(distinct(2^follower_id*3^followable_id)) follow_edges
+  from vs_reporting.user_memberships u
+  join
+    (select follower_id, followable_id
+    from `vs_reporting.follows_user`
+    group by follower_id, followable_id) t on u.user_id = t.follower_id
+  where m_community_id is not null
+  group by cid

@@ -1,0 +1,4 @@
+select m_community_id cid, count(distinct(memb_id)) transaction_nodes
+  from `solid-ridge-104914.vs_reporting.user_memberships` u
+  join `solid-ridge-104914.vs_reporting.communities` c on u.m_community_id = c.id
+  group by cid

@@ -4,8 +4,7 @@
 
 select
   cid,
-  avg(distance.from_center) avg_distance_from_center,
-  approx_quantiles(distance.from_center,100)[offset(50)] median_distance_from_center
+  avg(distance.from_center) avg_distance_from_center
 from 
   (select 
     memb_id point_id,
