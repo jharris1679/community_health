@@ -1,9 +1,9 @@
 select cid, avg(indeg) message_avg_indegree
   from
-    (select m_community_id cid, recipient_id, count(distinct(timestamp)) indeg
+    (select m_community_id cid, recipient_id, count(distinct(sender_id)) indeg
     from vs_reporting.user_memberships u
     join
-      (select recipient.id recipient_id, sender.id sender_id, timestamp
+      (select recipient.id recipient_id, sender.id sender_id
       from `hipyard_analytics_production.message_events_partitioned`) m on u.user_id = m.recipient_id
     group by cid, recipient_id)
   where cid is not null

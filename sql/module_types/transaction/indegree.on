@@ -1,9 +1,9 @@
 select cid, avg(indeg) transaction_avg_indegree
   from
-    (select m_community_id cid, buyer_id, count(distinct(t.id)) indeg
+    (select m_community_id cid, buyer_id, count(distinct(seller_id)) indeg
     from vs_reporting.user_memberships u
     join
-      (select cast(buyer_id as int64) as buyer_id, seller_id, id
+      (select cast(buyer_id as int64) as buyer_id, seller_id
       from `vs_reporting.transactions`
       where buyer_id != 'NULL') t on u.user_id = t.buyer_id
     group by cid, buyer_id)

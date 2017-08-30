@@ -1,11 +1,11 @@
 select cid, avg(outdeg) follow_avg_outdegree
   from
-    (select m_community_id cid, followable_id, count(distinct(t.id)) outdeg
+    (select m_community_id cid, followable_id, count(distinct(follower_id)) outdeg
     from vs_reporting.user_memberships u
     join
-      (select follower_id, followable_id, max(id) id
+      (select follower_id, followable_id
       from `vs_reporting.follows_user`
-      group by follower_id, followable_id) t on u.user_id = t.follower_id
+      group by follower_id, followable_id) t on u.user_id = t.followable_id
     group by cid, followable_id)
   where cid is not null
   group by cid
