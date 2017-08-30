@@ -109,3 +109,5 @@ http://www.utdallas.edu/~sherry.xin.li/soc_pref_movielens_20081116.pdf ****
 https://books.google.ca/books?id=lIvBMYVxWJYC&pg=PA1&lpg=PA1&dq=mathematical+models+of+online+communities&source=bl&ots=zYI0hpqgPE&sig=K3AfpjpgWvn3DgWjbFMrRHqwkXQ&hl=en&sa=X&ved=0ahUKEwjXz5me0drUAhXpx4MKHfTQBxYQ6AEIRDAG#v=onepage&q=mathematical%20models%20of%20online%20communities&f=false
 
 http://papers.nips.cc/paper/2486-feature-selection-in-clustering-problems.pdf
+
+https://stats.stackexchange.com/questions/195456/how-to-select-a-clustering-method-how-to-validate-a-cluster-solution-to-warran?noredirect=1&lq=1

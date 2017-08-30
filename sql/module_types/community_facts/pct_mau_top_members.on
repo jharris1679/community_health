@@ -1,0 +1,17 @@
+select 
+  cid,
+  count(distinct(tm.user_id)) / count(distinct(m.user_id)) pct_mau_top_members
+from 
+  (select
+    community_id cid,
+    user_id
+  from `vs_reporting.user_first_community` ufc
+  join `hipyard_analytics_production.user_events_live` ue on ufc.user_id = ue.user.id
+  where format_date('%Y-%m', date(timestamp)) = format_date('%Y-%m', date_sub(current_date(), interval 1 month))) m
+left join  
+  (select
+    user_id
+  from `vs_reporting.top_members`
+  where deleted_at is null) tm on m.user_id = tm.user_id
+group by cid
+order by pct_mau_top_members desc

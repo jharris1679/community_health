@@ -1,0 +1,11 @@
+select cid, avg(edge_weight) praise_avg_weight
+  from
+    (select m_community_id cid, 2^sender_id*3^recipient_id edge, count(distinct(id)) edge_weight
+    from vs_reporting.user_memberships u
+    join
+      (select sender_id, recipient_id, id
+      from `vs_reporting.praises`) m on u.user_id = m.recipient_id
+    group by cid, edge)
+  group by cid
+
+

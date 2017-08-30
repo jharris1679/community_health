@@ -1,0 +1,12 @@
+select 
+  community_id cid,
+  var_samp(price) sale_price_variance
+from `vs_reporting.user_first_community` ufc
+join
+  (select 
+    user.id user_id,
+    item.price
+  from `hipyard_analytics_production.item_events_partitioned` 
+  where event = 'item_sold') ie on ie.user_id = ufc.user_id
+group by cid
+order by sale_price_variance

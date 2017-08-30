@@ -1,0 +1,7 @@
+
+select m_community_id cid, count(distinct(2^recipient_id*3^sender_id)) praise_edges
+  from vs_reporting.user_memberships u
+  join
+    (select recipient_id, sender_id
+    from `vs_reporting.praises`) m on u.user_id = m.recipient_id
+  group by cid

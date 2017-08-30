@@ -1,0 +1,8 @@
+select 
+  community_id,
+  max(adult_population) adult_population,
+  max(last_month_mau_activation_pct) last_month_mau_activation_pct,
+  max(items_per_capita) items_per_capita
+from `strategic_segmentation.activation_and_items_per_capita` aipc
+join `strategic_segmentation.group_indexed_census_community`  gicc on gicc.group_index = aipc.group_index
+group by community_id

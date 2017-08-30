@@ -1,0 +1,11 @@
+select cid, avg(edge_weight) message_avg_weight
+  from
+    (select m_community_id cid, 2^sender_id*3^recipient_id edge, count(distinct(timestamp)) edge_weight
+    from vs_reporting.user_memberships u
+    join
+      (select sender.id sender_id, recipient.id recipient_id, timestamp
+      from `hipyard_analytics_production.message_events_partitioned`) m on u.user_id = m.recipient_id
+    group by cid, edge)
+  group by cid
+
+

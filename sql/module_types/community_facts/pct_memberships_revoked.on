@@ -1,0 +1,17 @@
+select 
+  j.cid,
+  count(distinct(r.user_id)) / count(distinct(j.user_id)) pct_memberships_revoked
+from
+  (select
+    community.id cid,
+    user.id user_id
+  from `hipyard_analytics_production.community_events_partitioned` 
+  where event = 'community_joined') j
+left join 
+  (select
+    community.id cid,
+    user.id user_id
+  from `hipyard_analytics_production.community_events_partitioned` 
+  where event = 'community_revoked') r on j.cid = r.cid
+group by cid
+order by pct_memberships_revoked desc

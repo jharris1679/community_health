@@ -1,0 +1,20 @@
+select 
+  recp_memb.m_community_id cid,
+  name,
+  approx_quantiles(response_time, 100)[offset(50)] median_response_time_last_month,
+  avg(response_time) avg_response_time
+from 
+  (select
+    conversation.id,
+    recipient.id recipient_id,
+    sender.id sender_id,
+    timestamp_diff(max(timestamp), min(timestamp), hour) / count(distinct(timestamp)) response_time
+  from `hipyard_analytics_production.message_events_live`
+  where format_date('%Y-%m', date(timestamp)) = format_date('%Y-%m', date_sub(current_date(), interval 1 month))
+  group by conversation.id, recipient.id, sender.id, conversation.message_count) msg
+join `vs_reporting.user_memberships` recp_memb on recp_memb.user_id = msg.recipient_id
+join `vs_reporting.user_memberships` send_memb on send_memb.user_id = msg.sender_id
+join `vs_reporting.communities` c on send_memb.m_community_id = c.id
+where recp_memb.m_community_id = send_memb.m_community_id
+group by cid, name
+order by median_response_time_last_month desc
