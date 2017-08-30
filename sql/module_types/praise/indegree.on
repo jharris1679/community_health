@@ -4,6 +4,7 @@ select cid, avg(indeg) praise_avg_indegree
     from vs_reporting.user_memberships u
     join
       (select recipient_id, sender_id, id
-      from `vs_reporting.praises`) t on u.user_id = m.recipient_id
+      from `vs_reporting.praises`) m on u.user_id = m.recipient_id
     group by cid, recipient_id)
+  where cid is not null
   group by cid

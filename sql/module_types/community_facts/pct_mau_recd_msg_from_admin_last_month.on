@@ -1,5 +1,5 @@
 select
-  m.community_id cid, 
+  cid, 
   count(distinct(recipient_id)) / count(distinct(user_id)) conversations_last_month
 from 
   (select

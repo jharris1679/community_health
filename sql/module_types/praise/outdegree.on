@@ -6,4 +6,5 @@ select cid, avg(outdeg) praise_avg_outdegree
       (select recipient_id, sender_id, id
       from `vs_reporting.praises`) m on u.user_id = m.recipient_id
     group by cid, sender_id)
+  where cid is not null
   group by cid

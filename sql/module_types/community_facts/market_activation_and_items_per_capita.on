@@ -1,5 +1,5 @@
 select 
-  community_id,
+  community_id cid,
   max(adult_population) adult_population,
   max(last_month_mau_activation_pct) last_month_mau_activation_pct,
   max(items_per_capita) items_per_capita
