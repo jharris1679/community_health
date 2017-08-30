@@ -111,3 +111,5 @@ https://books.google.ca/books?id=lIvBMYVxWJYC&pg=PA1&lpg=PA1&dq=mathematical+mod
 http://papers.nips.cc/paper/2486-feature-selection-in-clustering-problems.pdf
 
 https://stats.stackexchange.com/questions/195456/how-to-select-a-clustering-method-how-to-validate-a-cluster-solution-to-warran?noredirect=1&lq=1
+
+http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html
