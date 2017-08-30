@@ -6,6 +6,7 @@ select cid, avg(edge_weight) message_avg_weight
       (select sender.id sender_id, recipient.id recipient_id, timestamp
       from `hipyard_analytics_production.message_events_partitioned`) m on u.user_id = m.recipient_id
     group by cid, edge)
+  where cid is not null
   group by cid
 
 

@@ -4,4 +4,5 @@ select m_community_id cid, count(distinct(2^recipient_id*3^sender_id)) message_e
   join
     (select recipient.id recipient_id, sender.id sender_id
     from `hipyard_analytics_production.message_events_partitioned`) m on u.user_id = m.recipient_id
+  where cid is not null
   group by cid

@@ -4,6 +4,7 @@ select cid, avg(outdeg) message_avg_outdegree
     from vs_reporting.user_memberships u
     join
       (select recipient.id recipient_id, sender.id sender_id, timestamp
-      from `hipyard_analytics_production.message_event_partitioned`) m on u.user_id = m.recipient_id
+      from `hipyard_analytics_production.message_events_partitioned`) m on u.user_id = m.recipient_id
     group by cid, sender_id)
+  where cid is not null
   group by cid
