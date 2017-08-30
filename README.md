@@ -113,3 +113,5 @@ http://papers.nips.cc/paper/2486-feature-selection-in-clustering-problems.pdf
 https://stats.stackexchange.com/questions/195456/how-to-select-a-clustering-method-how-to-validate-a-cluster-solution-to-warran?noredirect=1&lq=1
 
 http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html
+
+http://scikit-learn.org/stable/modules/clustering.html#spectral-clustering
