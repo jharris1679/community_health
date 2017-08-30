@@ -1,0 +1,10 @@
+select 
+ community_id cid,
+ count(distinct(f.follower_id)) / count(distinct(ufc.user_id)) pct_users_following_categories
+from `vs_reporting.user_first_community` ufc
+left join 
+  (select 
+    follower_id
+  from `vs_reporting.follows_category`) f on f.follower_id = ufc.user_id
+group by cid
+order by cid

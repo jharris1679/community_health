@@ -1,0 +1,17 @@
+select 
+ community_id cid,
+ count(distinct(d.item_id)) / count(distinct(p.item_id)) pct_tems_deleted
+from `vs_reporting.user_first_community` ufc
+join 
+  (select
+    user.id user_id,
+    item.id item_id
+  from `hipyard_analytics_production.item_events_partitioned` 
+  where event = 'item_posted') p on p.user_id = ufc.user_id
+left join 
+  (select 
+    item.id item_id
+  from `hipyard_analytics_production.item_events_partitioned` 
+  where event = 'item_deleted') d on d.item_id = p.item_id
+group by cid
+order by cid
