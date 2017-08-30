@@ -1,0 +1,11 @@
+select 
+ community_id cid,
+ count(distinct(t.buyer_id)) / count(distinct(ufc.user_id)) pct_users_bought
+from `vs_reporting.user_first_community` ufc
+left join 
+  (select 
+    cast(buyer_id as int64) buyer_id
+  from `vs_reporting.transactions`
+  where buyer_id != 'NULL') t on t.buyer_id = ufc.user_id
+group by cid
+order by cid

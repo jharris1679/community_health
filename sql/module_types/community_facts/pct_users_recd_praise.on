@@ -1,0 +1,10 @@
+select 
+ community_id cid,
+ count(distinct(p.recipient_id)) / count(distinct(ufc.user_id)) pct_users_rcd_praise
+from `vs_reporting.user_first_community` ufc
+left join 
+  (select 
+    recipient_id
+  from `vs_reporting.praises`) p on p.recipient_id = ufc.user_id
+group by cid
+order by cid
