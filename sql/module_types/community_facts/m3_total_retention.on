@@ -1,6 +1,6 @@
 select
   cid,
-  count(distinct(euid)) / count(distinct(muid)) m3_total_retention
+  count(distinct(euid)) / count(distinct(muid)) m3_retention
 from
   (select um.user_id muid, ue.user_id euid, cid
   from

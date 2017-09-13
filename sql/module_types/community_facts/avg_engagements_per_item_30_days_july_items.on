@@ -1,0 +1,25 @@
+select
+  community_id cid,
+  avg(engagements_per_item) avg_engagements_per_item
+from `vs_reporting.user_first_community` ufc
+join 
+  (select
+    user_id,
+    posted.item_id,
+    count(distinct(engaged_at)) engagements_per_item
+  from 
+    (select
+      user.id user_id, 
+      item.id item_id,
+      date(timestamp) posted_at
+    from `hipyard_analytics_production.item_events_partitioned` 
+    where format_date('%Y-%m', date(timestamp)) = '2017-07'
+    and event = 'item_posted') posted 
+  join
+    (select
+      item.id item_id,
+      date(timestamp) engaged_at
+    from `hipyard_analytics_production.item_events_partitioned` 
+    where event in ('item_interested', 'item_commented')) engaged on posted.item_id = engaged.item_id and engaged_at < date_add(posted_at, interval 30 day)
+  group by user_id, posted.item_id) item on item.user_id = ufc.user_id
+group by cid

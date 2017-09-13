@@ -1,0 +1,20 @@
+select
+  community_id cid,
+  count(distinct(engaged.item_id)) / count(distinct(posted.item_id)) pct_interested
+from `vs_reporting.user_first_community` ufc
+join
+  (select
+    user.id user_id, 
+    item.id item_id,
+    date(timestamp) posted_at
+  from `hipyard_analytics_production.item_events_partitioned` 
+  where format_date('%Y-%m', date(timestamp)) = '2017-07'
+  and event = 'item_posted') posted on posted.user_id = ufc.user_id
+left join
+  (select
+    item.id item_id,
+    date(timestamp) engaged_at
+  from `hipyard_analytics_production.item_events_partitioned` 
+  where event in ('item_interested', 'item_commented')) engaged on posted.item_id = engaged.item_id and engaged_at < date_add(posted_at, interval 30 day)
+group by cid
+

@@ -1,0 +1,24 @@
+select
+  community_id cid,
+  avg(time_to_sale) avg_engagements_per_item
+from `vs_reporting.user_first_community` ufc
+join
+  (select
+    user_id,
+    posted.item_id,
+    date_diff(sold_at, posted_at, day) time_to_sale
+  from
+    (select
+      user.id user_id,
+      item.id item_id,
+      date(timestamp) posted_at
+    from `hipyard_analytics_production.item_events_partitioned`
+    where format_date('%Y-%m', date(timestamp)) = '2017-07'
+    and event = 'item_posted') posted
+  join
+    (select
+      item.id item_id,
+      date(timestamp) sold_at
+    from `hipyard_analytics_production.item_events_partitioned`
+    where event = 'item_sold') sold on posted.item_id = sold.item_id and sold_at < date_add(posted_at, interval 30 day)) item on item.user_id = ufc.user_id
+group by cid

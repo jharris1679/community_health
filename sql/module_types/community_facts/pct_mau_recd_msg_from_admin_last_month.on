@@ -1,6 +1,6 @@
 select
   cid, 
-  count(distinct(recipient_id)) / count(distinct(user_id)) conversations_last_month
+  count(distinct(recipient_id)) / count(distinct(user_id)) conversations_with_an_admin_last_month
 from 
   (select
     community_id cid,
@@ -18,4 +18,4 @@ left join
   and format_date('%Y-%m', date(timestamp)) = format_date('%Y-%m', date_sub(current_date(), interval 1 month))
   group by recipient_id) e on e.recipient_id = m.user_id
 group by cid
-order by conversations_last_month desc
+order by conversations_with_an_admin_last_month desc
